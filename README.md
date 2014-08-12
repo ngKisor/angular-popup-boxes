@@ -1,19 +1,9 @@
-<html>
-<head>
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/angular/angular.min.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<body ng-app="sampleApp">
-	<div ng-controller="sampleCtrl">
-		<button ng-click="alertSample()" class="btn btn-primary">Alert Sample</button>
-		<button ng-click="inputSample()" class="btn btn-primary">Input Sample</button>
-		<button ng-click="confirmSample()" class="btn btn-primary">Confirm Sample</button>
-	</div>
-</body>
-<script src="angular-popup-boxes.js"></script>
-<script>
+#angular-popup-boxes
+run `bower install` before you open the sample file
+
+Requirements: Angular (duh?!), UI-Bootstrap, Bootstrap (CSS only) and jQuery
+
+```
 angular.module("sampleApp", ['angularPopupBoxes'])
 .config(['angularPopupBoxesProvider', function(angularPopupBoxesProvider)
 {
@@ -52,5 +42,6 @@ angular.module("sampleApp", ['angularPopupBoxes'])
 		});
 	};
 }]);
-</script>
-</html>
+```
+
+Aaaaaand that's all folks!

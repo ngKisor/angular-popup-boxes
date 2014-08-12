@@ -16,8 +16,7 @@
   "dependencies": {
     "bootstrap": "~3.2.0",
     "angular": "~1.2.21",
-    "angular-ui": "~0.4.0",
-    "toast-bootstrap": "https://github.com/ericprieto/toast-bootstrap",
-    "tiny-emitter": "~0.1.12"
+    "jquery": "~2.1.1",
+    "angular-bootstrap": "~0.11.0"
   }
 }
