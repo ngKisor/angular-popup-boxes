@@ -7,11 +7,13 @@ Requirements: Angular (duh?!), UI-Bootstrap, Bootstrap (CSS only) and jQuery
 angular.module("sampleApp", ['angularPopupBoxes'])
 .config(['angularPopupBoxesProvider', function(angularPopupBoxesProvider)
 {
-	angularPopupBoxesProvider.okText = 'Yep :D';
-	angularPopupBoxesProvider.cancelText = 'Nop =/';
+	angularPopupBoxesProvider.setTexts('Yep :D', 'Nop =/');
 }])
 .controller('sampleCtrl', ['$scope', 'angularPopupBoxes', function($scope, popup)
 {
+	// You can change the texts at any time!
+	// popup.setTexts('Yep :D', 'Nop =/');
+
 	$scope.alertSample = function()
 	{
 		popup.alert('Well... Not many options here...').result.then(function()

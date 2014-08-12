@@ -3,8 +3,14 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 {
 	var that = this;
 
-	this.okText = "Ok";
-	this.cancelText = "Cancel";
+	this.okText = 'Ok';
+	this.cancelText = 'Cancel';
+
+	var setTexts = this.setTexts = function (okText, cancelText)
+	{
+		that.okText = okText;
+		that.cancelText = cancelText;
+	}
 
 	this.$get = ["$modal", "$q", function($modal, $q)
 	{
@@ -81,6 +87,7 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 		}
 
 		return {
+			setTexts: setTexts,
 			confirm: confirm,
 			alert: alert,
 			input: input
