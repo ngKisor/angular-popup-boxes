@@ -1,7 +1,7 @@
 {
-  "name": "angular-notifications",
+  "name": "angular-popup-box",
   "version": "0.0.0",
-  "homepage": "https://github.com/ericprieto/angular-notifications",
+  "homepage": "https://github.com/ericprieto/angular-popup-box",
   "authors": [
     "Eric Prieto <ericprieto@live.com>"
   ],
