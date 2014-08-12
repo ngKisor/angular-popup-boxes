@@ -20,8 +20,8 @@
 				html += content;
 				html += '</div>';
 				html += '<div class="modal-footer">';
-				html += '<button class="btn btn-sm btn-danger organo-notification-btn-cancel">' + translate("general.cancel") + '</button>';
-				html += '<button class="btn btn-sm btn-primary organo-notification-btn-ok">' + translate("general.ok") + '</button>';
+				html += '<button class="btn btn-sm btn-danger angular-notification-btn-cancel">' + translate("general.cancel") + '</button>';
+				html += '<button class="btn btn-sm btn-primary angular-notification-btn-ok">' + translate("general.ok") + '</button>';
 				html += '</div>';
 
 			var modal = $modal.open(
@@ -33,17 +33,17 @@
 			{
 				modalEl = $("#" + modalId).parent().parent();
 				modalEl.width(options.width || 370);
-				modalEl.find(".organo-notification-btn-ok").click(function()
+				modalEl.find(".angular-notification-btn-ok").click(function()
 				{
 					modal.close();
 				});
-				modalEl.find(".organo-notification-btn-cancel").click(function()
+				modalEl.find(".angular-notification-btn-cancel").click(function()
 				{
 					modal.dismiss();
 				});
 			}, 1);
 
-			return modal
+			return modal;
 		}
 
 		function alert(content, options)
@@ -57,7 +57,7 @@
 				html += content;
 				html += '</div>';
 				html += '<div class="modal-footer">';
-				html += '<button class="btn btn-sm btn-primary organo-notification-btn-ok">' + translate("general.ok") + '</button>';
+				html += '<button class="btn btn-sm btn-primary angular-notification-btn-ok">' + translate("general.ok") + '</button>';
 				html += '</div>';
 
 			var modal = $modal.open(
@@ -69,13 +69,13 @@
 			{
 				modalEl = $("#" + modalId).parent().parent();
 				modalEl.width(options.width || 370);
-				modalEl.find(".organo-notification-btn-ok").click(function()
+				modalEl.find(".angular-notification-btn-ok").click(function()
 				{
 					modal.close();
 				});
 			}, 1);
 
-			return modal
+			return modal;
 		}
 
 		function input(content, options)
@@ -87,11 +87,11 @@
 
 			var html  = '<div class="modal-body" id="' + modalId +  '">';
 				html += content;
-				html += '<br/><br/><div class="form"><input class="form-control organo-notification-input" /></div>';
+				html += '<br/><br/><div class="form"><input class="form-control angular-notification-input" /></div>';
 				html += '</div>';
 				html += '<div class="modal-footer">';
-				html += '<button class="btn btn-sm btn-danger organo-notification-btn-cancel">' + translate("general.cancel") + '</button>';
-				html += '<button class="btn btn-sm btn-primary organo-notification-btn-ok">' + translate("general.ok") + '</button>';
+				html += '<button class="btn btn-sm btn-danger angular-notification-btn-cancel">' + translate("general.cancel") + '</button>';
+				html += '<button class="btn btn-sm btn-primary angular-notification-btn-ok">' + translate("general.ok") + '</button>';
 				html += '</div>';
 
 			var deferred = $q.defer();
@@ -105,11 +105,11 @@
 			{
 				modalEl = $("#" + modalId).parent().parent();
 				modalEl.width(options.width || 370);
-				modalEl.find(".organo-notification-btn-ok").click(function()
+				modalEl.find(".angular-notification-btn-ok").click(function()
 				{
 					modal.close();
 				});
-				modalEl.find(".organo-notification-btn-cancel").click(function()
+				modalEl.find(".angular-notification-btn-cancel").click(function()
 				{
 					modal.dismiss();
 				});
@@ -117,8 +117,8 @@
 
 			modal.result.then(function()
 			{
-				var input = modalEl.find(".organo-notification-input").val();
-				if(input == "")
+				var input = modalEl.find(".angular-notification-input").val();
+				if(input === "")
 				{
 					deferred.reject();
 				}
@@ -137,13 +137,13 @@
 		{
 			singleton.emit("change");
 			singleton.alerts.push({type: type, msg: message});
-		}
+		};
 
 		flash.clear = function()
 		{
 			singleton.emit("change");
 			singleton.alerts = [];
-		}
+		};
 
 		function toast(type, message)
 		{
@@ -156,10 +156,10 @@
 			input: input,
 			flash: flash,
 			toast: toast
-		}
+		};
 	}]);
 
-	module.directive("organoFlash", function()
+	module.directive("angularFlash", function()
 	{
 		return {
 			link: function(scope, element)
@@ -178,9 +178,9 @@
 				{
 					singleton.emit("change");
 					singleton.alerts.splice(index, 1);
-				}
+				};
 			},
 			template: '<alert ng-animate="{enter: \'enter-slide\', leave: \'leave-slide\'}" ng-repeat="alert in singleton.alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>'
-		}
+		};
 	});
 })();
