@@ -23,8 +23,8 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 					html += content;
 					html += '</div>';
 					html += '<div class="modal-footer">';
-					if(cancel) html += '<button class="btn btn-sm btn-danger angular-notification-btn-cancel">' + that.cancelText + '</button>';
-					if(ok) html += '<button class="btn btn-sm btn-primary angular-notification-btn-ok">' + that.okText + '</button>';
+					if(cancel) html += '<button class="btn btn-sm btn-danger angular-popup-box-btn-cancel">' + that.cancelText + '</button>';
+					if(ok) html += '<button class="btn btn-sm btn-primary angular-popup-box-btn-ok">' + that.okText + '</button>';
 					html += '</div>';
 
 			var modal = $modal.open(
@@ -37,11 +37,11 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 			{
 				modalEl = $("#" + modalId).parent().parent();
 				modalEl.width(options.width || 370);
-				modalEl.find(".angular-notification-btn-ok").click(function()
+				modalEl.find(".angular-popup-box-btn-ok").click(function()
 				{
 					modal.close();
 				});
-				modalEl.find(".angular-notification-btn-cancel").click(function()
+				modalEl.find(".angular-popup-box-btn-cancel").click(function()
 				{
 					modal.dismiss();
 				});
@@ -64,13 +64,13 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 
 		function input(content, options)
 		{
-			content += '<br/><br/><div class="form"><input class="form-control angular-notification-input" /></div>';
+			content += '<br/><br/><div class="form"><input class="form-control angular-popup-box-input" /></div>';
 			var modal = buildModal(content, true, false, (options || {}));
 			var deferred = $q.defer();
 
 			modal.result.then(function()
 			{
-				var input = modal.el.find(".angular-notification-input").val();
+				var input = modal.el.find(".angular-popup-box-input").val();
 				if(input === "")
 				{
 					deferred.reject();
