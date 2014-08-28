@@ -30,7 +30,8 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 			var modal = $modal.open(
 			{
 				template: html,
-				keyboard: false
+				keyboard: false,
+				backdrop: 'static'
 			});
 
 			setTimeout(function()
@@ -64,20 +65,42 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 
 		function input(content, options)
 		{
-			content += '<br/><br/><div class="form"><input class="form-control angular-notification-input" /></div>';
-			var modal = buildModal(content, true, false, (options || {}));
+			content += '<br/><br/><form class="form"><input name="input" class="form-control angular-notification-input" /></form>';
+			
+			var modal = buildModal(content, true, true, (options || {}));
 			var deferred = $q.defer();
+			var input;
+
+			setTimeout(function()
+			{
+				input = modal.el.find(".angular-notification-input");
+				
+				$(window).one('keydown', function()
+				{
+					input.focus();
+				});
+
+				input.on('keyup', function(e)
+				{
+					if(e.keyCode == 13)
+					{
+						modal.close();
+					}
+				});
+			}, 3);
 
 			modal.result.then(function()
 			{
-				var input = modal.el.find(".angular-notification-input").val();
-				if(input === "")
+				var val = input.val();
+				input.off();
+
+				if(val === "")
 				{
 					deferred.reject();
 				}
 				else
 				{
-					deferred.resolve(input);
+					deferred.resolve(val);
 				}
 			}, deferred.reject);
 
