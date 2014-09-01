@@ -12,9 +12,25 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 		that.cancelText = cancelText;
 	}
 
+	var extendOptions = function(options, defaults)
+	{
+		options = options || {};
+
+		if(typeof options.okText === 'undefined')
+			options.okText = defaults.okText;
+
+		if(typeof options.cancelText === 'undefined')
+			options.cancelText = defaults.cancelText;
+
+		if(typeof options.width === 'undefined')
+			options.width = 370;
+
+		return options;
+	}
+
 	this.$get = ["$modal", "$q", function($modal, $q)
 	{
-		function buildModal(content, ok, cancel, options)
+		function buildModal(content, options)
 		{
 			var modalId = 'modal-' + Math.floor(Math.random() * 9999);
 			var modalEl;
@@ -23,8 +39,10 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 					html += content;
 					html += '</div>';
 					html += '<div class="modal-footer">';
-					if(cancel) html += '<button class="btn btn-sm btn-danger angular-notification-btn-cancel">' + that.cancelText + '</button>';
-					if(ok) html += '<button class="btn btn-sm btn-primary angular-notification-btn-ok">' + that.okText + '</button>';
+					if(typeof options.cancelText === 'string')
+						html += '<button class="btn btn-sm btn-danger angular-notification-btn-cancel">' + options.cancelText + '</button>';
+					if(typeof options.okText === 'string')
+						html += '<button class="btn btn-sm btn-primary angular-notification-btn-ok">' + options.okText + '</button>';
 					html += '</div>';
 
 			var modal = $modal.open(
@@ -37,7 +55,7 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 			setTimeout(function()
 			{
 				modalEl = $("#" + modalId).parent().parent();
-				modalEl.width(options.width || 370);
+				modalEl.width(options.width);
 				modalEl.find(".angular-notification-btn-ok").click(function()
 				{
 					modal.close();
@@ -55,19 +73,37 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 
 		function confirm(content, options)
 		{
-			return buildModal(content, true, true, (options || {}));
+			options = extendOptions(options,
+			{
+				okText: that.okText,
+				cancelText: that.cancelText
+			});
+
+			return buildModal(content, options);
 		}
 
 		function alert(content, options)
 		{
-			return buildModal(content, true, false, (options || {}));
+			options = extendOptions(options,
+			{
+				okText: that.okText,
+				cancelText: false
+			});
+
+			return buildModal(content, options);
 		}
 
 		function input(content, options)
 		{
 			content += '<br/><br/><form class="form"><input name="input" class="form-control angular-notification-input" /></form>';
 			
-			var modal = buildModal(content, true, true, (options || {}));
+			options = extendOptions(options,
+			{
+				okText: that.okText,
+				cancelText: that.cancelText
+			});
+
+			var modal = buildModal(content, options);
 			var deferred = $q.defer();
 			var input;
 
