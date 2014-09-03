@@ -127,7 +127,7 @@ angular.module("angularPopupBoxes", ["ui.bootstrap"])
 
 			modal.result.then(function()
 			{
-				var val = input.val();
+				var val = modal.el.find(".angular-notification-input").val();
 				input.off();
 
 				if(val === "")
